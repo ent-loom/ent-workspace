@@ -1,0 +1,22 @@
+# AGENTS.md
+
+- 使用中文沟通, 简洁陈列风格.
+- 目标: 做业务友好型系列框架.面相实体编程框架.
+- 技术栈: Java 21 主线；Core/Boot 2 目标 Java 8；Boot 3/4 目标 Java 17；Maven, Spring Boot, MySQL 8
+- JDK策略: 主开发与完整 Maven Reactor 固定使用 JDK 21；当前完整仓库支持口径为 JDK 21+。
+- 兼容路线:
+  - 框架无关 Core 与独立 Boot 2 兼容线目标为 Java 8，Boot 3/4 集成线目标为 Java 17；
+  - 代码未上线,修改时,不需要兼容,重构清晰干净
+- 版本依据: Maven Wrapper 和 Maven Enforcer 负责构建约束；`.java-version` 仅作本地 JDK 21 提示；兼容边界见 `docs/evolution/decisions/core/Java运行时与Spring兼容性.md`。
+- 开发过程要求项:
+  - 实现层
+      - 文档/备注/日志 默认中文为主;
+      - 做选择时,默认按 "先较小闭环,再较佳实践" 选择;
+      - `ent-loom/examples/`：示例工程以优雅清晰为先，保留适度扩展性；优先复用框架能力与默认约定，避免冗余和过度设计。
+      - 状态/类型优先考虑 enum枚举类;枚举类中每个项独立一行,默认携带中文备注名称;
+      - 实体及字段的中文说明优先复用注解元数据，不重复注释；仅补充业务规则、约束等额外语义，枚举型字段保留 link 枚举注释;
+  - 测试层 - 低风险且局部的少量改动可不新增测试.
+  - git层 - 当前3个目录有3个git仓库 提交时默认全部提交:
+    - /
+    - /ent-loom
+    - /ent-runtime
